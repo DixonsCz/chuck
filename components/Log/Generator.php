@@ -121,20 +121,33 @@ class Generator extends \Nette\Application\UI\Control
      * @param  array $issues
      * @return array
      */
-    private function orderByIssueType($issues)
+    private function orderByIssueType(array $issues, array $orderMap = array('RFC', 'Bug', 'Support Requesty'))
     {
-        return $issues;
+		foreach($issues as $key => $issue) {
+			$search = array_search($issue['typeName'], $orderMap, true);
+			$issues[$key]['order'] = (($search === false) ? count($orderMap) : $search) + 1;
+		}
+
+		uasort($issues, function($a, $b) {
+			return $a['order'] < $b['order'] ? -1 : 1;
+		});
+
+		return $issues;
     }
 
     /**
      * P1 at the top, then P2, .....
      *
-     * @param $issues
-     * @return mixed
+     * @param array $issues
+     * @return array
      */
-    private function orderByPriority($issues)
+    private function orderByPriority(array $issues)
     {
-        return $issues;
+        uasort($issues, function($a, $b) {
+			return str_replace('P', '', $a['priority']) < str_replace('P', '', $b['priority']) ? -1 : 1;
+		});
+		
+		return $issues;
     }
 
     /**
