@@ -121,14 +121,15 @@ class Generator extends \Nette\Application\UI\Control
      * @param  array $issues
      * @return array
      */
-    private function orderByIssueType(array $issues, array $orderMap = array('RFC', 'Bug', 'Support Requesty'))
+    private function orderByIssueType(array $issues, array $orderMap = array('RFC', 'Bug', 'Support Request'))
     {
         if(count($orderMap)) {
             foreach($issues as $key => $issue) {
                 if(isset($issue['typeName'])) {
                     $search = array_search($issue['typeName'], $orderMap, true);
-                    $issues[$key]['order'] = (($search === false) ? count($orderMap) : $search) + 1;
                 }
+                
+                $issues[$key]['order'] = ((!isset($search) || $search === false) ? count($orderMap) : $search) + 1;
             }
 
             uasort($issues, function($a, $b) {
