@@ -125,8 +125,10 @@ class Generator extends \Nette\Application\UI\Control
     {
         if(count($orderMap)) {
             foreach($issues as $key => $issue) {
-                $search = array_search($issue['typeName'], $orderMap, true);
-                $issues[$key]['order'] = (($search === false) ? count($orderMap) : $search) + 1;
+                if(isset($issue['typeName'])) {
+                    $search = array_search($issue['typeName'], $orderMap, true);
+                    $issues[$key]['order'] = (($search === false) ? count($orderMap) : $search) + 1;
+                }
             }
 
             uasort($issues, function($a, $b) {
