@@ -48,7 +48,20 @@ class LogPresenter extends ProjectPresenter
             }
 
             if (isset($_GET['emailSend']) && $_GET['emailSend'] == 'email') {
-                $this->context->mailHelper->getMail($this->formatLog($changeLogList), $this->template->projectName, $this->project, $_GET['toReleaseNote'], 'Line');
+                $mailer = new \DixonsCz\Chuck\Mailing\Mailer();
+
+                $logMail = new \DixonsCz\Chuck\Mailing\LogMail();
+                $logMail->addTo($_GET['toReleaseNote']);
+                $logMail->setSubject('[Release note] ' . $this->template->projectName);
+
+                $logMail->setProjectName($this->template->projectName);
+                $logMail->setProject($this->template->project);
+                $logMail->setLog($this->formatLog($changeLogList));
+
+                $logMail->setTemplateName(\DixonsCz\Chuck\Mailing\Mail::TEMPLATE_ONE_LINE);
+
+                $mailer->send($logMail);
+
                 $this->flashMessage('Mail was sent!', 'success');
             }
 
