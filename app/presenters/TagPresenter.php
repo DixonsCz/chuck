@@ -136,7 +136,7 @@ class TagPresenter extends ProjectPresenter
      * @param string $toReleaseNote
      */
     public function sendReleaseNote($tags, $toReleaseNote)
-    {
+    {   
         $tagNames = array_keys($this->tagList);
         sort($tags);
 
@@ -161,9 +161,21 @@ class TagPresenter extends ProjectPresenter
 
         $diff = array_diff_key($tag1Log, $tag2Log);
 
-        $this->context->mailHelper->getMail($this->formatLog($diff), $this->template->projectName, $this->project, $toReleaseNote, 'Line');
+        $mailer = new \DixonsCz\Chuck\Mailing\Mailer();
+
+        $logMail = new \DixonsCz\Chuck\Mailing\LogMail();
+        $logMail->addTo($toReleaseNote);
+        $logMail->setSubject('[Release note] ' . $this->template->projectName);
+
+        $logMail->setProjectName($this->template->projectName);
+        $logMail->setProject($this->template->project);
+        $logMail->setLog($this->formatLog($diff));
+
+        $logMail->setTemplateName(\DixonsCz\Chuck\Mailing\Mail::TEMPLATE_ONE_LINE);
+
+        $mailer->send($logMail);
 
         $this->flashMessage('Mail was sent!', 'success');
     }
 
-        }
+}

@@ -32,8 +32,6 @@ common:
         logGenerator:
             class: DixonsCz\Chuck\Log\Generator
             arguments: [@jiraHelper]
-        mailHelper:
-            class: MailHelper
         jiraIssuesRepository:
             class: DixonsCz\Chuck\Jira\Issue\Repository
         jiraRequestsFactory:
