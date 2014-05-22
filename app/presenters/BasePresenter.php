@@ -70,4 +70,18 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 
         return $this->context->parameters['projects'];
     }
+    
+    /**
+     * Get global variable
+     * 
+     * @param string $name
+     * @param int $type
+     * @param mixed $default
+     * @return mixed
+     */
+    protected function param($name, $type = INPUT_GET, $default = null)
+    {
+        $output = filter_input($type, $name);
+        return $output ?: $default;
+    }
 }
