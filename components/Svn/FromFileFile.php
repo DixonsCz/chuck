@@ -119,4 +119,13 @@ class FromFile implements IHelper
         
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function getBranchesList() 
+    {
+
+    }
+
 }

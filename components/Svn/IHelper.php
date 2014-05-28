@@ -67,4 +67,11 @@ interface IHelper
      * @param string $tagMessage message to add
      */
     public function createTag($tagName, $tagMessage);
+
+    /**
+     * Load branches information
+     *
+     * @return array with branch names
+     */
+    public function getBranchesList();
 }
