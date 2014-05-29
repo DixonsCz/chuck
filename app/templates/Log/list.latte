@@ -1,5 +1,5 @@
 {extends ../projectBase.latte}
-
+   
 {block #projectContent}
     <h1>Project: {$projectName}</h1>
     {include #menu}
@@ -17,6 +17,11 @@
     {foreach $flashes as $flash}
         <div class="alert alert-{$flash->type}">{$flash->message}</div>
     {/foreach}
+    
+    {form branchForm}
+        {input 'branch'}
+        {input 'submitButton'}
+    {/form}
 
     <form method="get" class="form-inline">
         <input type="hidden" name="vp-page" value="{$vpPage}" />
@@ -27,10 +32,19 @@
         <input type="hidden" name="project" value="{$project}" />
         <input type="hidden" name="action" value="{$presenter->getAction()}" />
         <input type="hidden" name="presenter" value="{$presenter->getName()}" />
+
         <br /><br />
         {control logTable}
 
         {control vp}
     </form>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('select#frm-branchForm-branch option[value={$currentBranch}]').attr("selected","selected");
+        });
+    </script>    
 
 {/block}
+ 
+             

@@ -1,5 +1,4 @@
 <?php
-
 namespace DixonsCz\Chuck\Svn;
 
 class FromFile implements IHelper
@@ -11,7 +10,13 @@ class FromFile implements IHelper
     protected $svnLogFile;
 
     /**
-     * 
+     *
+     * @var string
+     */
+    public $currentBranch = 'trunk';
+
+    /**
+     *
      * @param string $logPath
      */
     public function __construct($logPath)
@@ -20,26 +25,35 @@ class FromFile implements IHelper
     }
 
     /**
-     * 
+     *
      * @param string $tagName
      * @param string $tagMessage
      */
     public function createTag($tagName, $tagMessage)
     {
-        
+
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getCurrentBranch()
     {
-        return 'fake';
+        return $this->currentBranch;
     }
 
     /**
-     * 
+     *
+     * @param string
+     */
+    public function setCurrentBranch($currentBranch)
+    {
+        $this->currentBranch = $currentBranch;
+    }
+
+    /**
+     *
      * @param string $project
      * @return array
      */
@@ -52,7 +66,7 @@ class FromFile implements IHelper
     }
 
     /**
-     * 
+     *
      * @param string $path
      * @param int $offset
      * @param int $limit
@@ -61,7 +75,7 @@ class FromFile implements IHelper
     public function getLog($path = '/trunk', $offset = 0, $limit = 30)
     {
         $xmlLog = simplexml_load_file($this->svnLogFile);
-        
+
         $output = array();
         foreach ($xmlLog as $log)
         {
@@ -72,12 +86,12 @@ class FromFile implements IHelper
                 'msg' => (string) $log->msg,
             );
         }
-        
+
         return $output;
     }
 
     /**
-     * 
+     *
      * @return int
      */
     public function getLogSize()
@@ -86,7 +100,7 @@ class FromFile implements IHelper
     }
 
     /**
-     * 
+     *
      * @return array
      */
     public function getTagList()
@@ -95,7 +109,7 @@ class FromFile implements IHelper
     }
 
     /**
-     * 
+     *
      * @param string $tagName
      * @param int $limit
      * @return array
@@ -106,26 +120,38 @@ class FromFile implements IHelper
     }
 
     /**
-     * 
+     *
      * @param string $project
      */
     public function startup($project)
     {
-        
+
     }
 
     public function updateRepository()
     {
-        
+
     }
 
     /**
      *
      * @return array
      */
-    public function getBranchesList() 
+    public function getBranchesList()
     {
+        $branches = __DIR__ . '/../../app/resources/branches.xml';
+        $xmlBranches = simplexml_load_file($branches);
 
+        $output[$this->currentBranch] = $this->currentBranch;
+        if ($xmlBranches->list) {
+            foreach ($xmlBranches->list->entry as $branch) {
+                if ($branch->attributes()->kind == 'dir') {
+                    $output[(string) $branch->name] = (string) $branch->name;
+                }
+            }
+        }
+
+        return $output;
     }
 
 }

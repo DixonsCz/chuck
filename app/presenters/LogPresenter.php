@@ -7,6 +7,20 @@ namespace DixonsCz\Chuck\Presenters;
  */
 class LogPresenter extends ProjectPresenter
 {
+
+    /**
+    *
+    * @var \Nette\Http\SessionSection
+    */
+    public $logSession;
+
+    public function __construct(\Nette\Http\Session $session)
+    {
+        parent::__construct();
+
+        $this->logSession = new \Nette\Http\SessionSection($session, 'logSession');
+    }
+
     /**
      * Renders list of log with a visual paginator
      *
@@ -25,9 +39,15 @@ class LogPresenter extends ProjectPresenter
             $this->template->mailTo = $this->context->parameters['projects'][$this->project]['sendTo'];
         }
 
+        if ($this->logSession->offsetExists('currentBranch')) {
+            $this->template->currentBranch = $this->logSession->offsetGet('currentBranch');
+        } else {
+            $this->template->currentBranch = $this->context->svnHelper->getCurrentBranch();
+        }
+
         try {
             $logList = $this->context->svnHelper->getLog(
-                $this->context->svnHelper->getCurrentBranch(),
+                $this->template->currentBranch,
                 $paginator->offset,
                 $paginator->itemsPerPage
             );
@@ -36,7 +56,7 @@ class LogPresenter extends ProjectPresenter
             $this->flashMessage($e->getMessage(), 'error');
         }
 
-//		$this->template->ticketLog = false;
+//             $this->template->ticketLog = false;
         $this->template->logTpl = "";
 
         // generating log for confluence
@@ -64,5 +84,35 @@ class LogPresenter extends ProjectPresenter
         $logTable->setSelectedLogs($selectedLogs);
 
         $this->template->log = array();
+    }
+
+    /**
+     * @param string
+     */
+    protected function createComponentBranchForm($name)
+    {
+        $form = new \Nette\Application\UI\Form($this, $name);
+        $form->getElementPrototype()->class[] = "form-horizontal";
+
+        $form->addSelect('branch', "", $this->context->svnHelper->getBranchesList());
+        $form->addSubmit('submitButton', 'Select a branch')->setAttribute('class', 'btn');
+        $form->onSuccess[] = new \Nette\Callback($this, 'branchFormSubmitted');
+
+        $form->setDefaults(array(
+            'branch' => $this->context->svnHelper->getCurrentBranch()
+        ));
+
+        return $form;
+    }
+
+    /**
+     * @param \Nette\Application\UI\Form $form
+     */
+    public function branchFormSubmitted($form)
+    {
+        $values = $form->getValues();
+
+        $this->context->svnHelper->setCurrentBranch($values['branch']);
+        $this->logSession->offsetSet('currentBranch', $this->context->svnHelper->getCurrentBranch());
     }
 }
