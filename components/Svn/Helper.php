@@ -315,4 +315,26 @@ class Helper implements IHelper
 
         unlink($tempFile);
     }
+
+    /**
+     * Load branches information
+     *
+     * @return array with branch names
+     */
+    public function getBranchesList() 
+    {
+        $output = array();
+        $branchesPath = "' . $this->remoteUrl . '/branches";
+        $branchesList = simplexml_load_string($this->executeRemoteCommand('list', $branchesPath));
+
+        if ($branchesList->list) {
+            foreach ($xmlBranches->list->entry as $branch) {
+                if ($branch->attributes()->kind == 'dir') {
+                    $output[] = (string) $branch->name;
+                }
+            }
+        }
+
+        return $output;
+    }
 }

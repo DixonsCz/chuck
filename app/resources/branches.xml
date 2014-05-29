@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lists>
+    <list
+       path="/branches">
+        <entry
+           kind="dir">
+            <name>branch1</name>
+            <commit
+               revision="5">
+            <author>vesi</author>
+            <date>2014-05-27T16:31:15.603843Z</date>
+            </commit>
+        </entry>
+        <entry
+            kind="dir">
+         <name>branch2</name>
+         <commit
+            revision="5">
+         <author>vesi</author>
+         <date>2014-05-27T16:31:15.603843Z</date>
+         </commit>
+        </entry>
+    </list>
+</lists>
+
