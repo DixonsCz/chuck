@@ -1,5 +1,10 @@
 {
 	"name": "DixonsCz/chuck",
+    "repositories": [
+        {
+            "type": "svn",
+            "url": "https://svn.dixonsretail.net"
+        }],
 	"require": {
 		"nette/nette": "2.1.*",
 		"kdyby/curl": "*",
