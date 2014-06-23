@@ -11,15 +11,9 @@ use Nette\Http\IRequest;
  */
 class LogPresenter extends ProjectPresenter
 {
-	/** @var svnHelper */
-	protected $svnHelper;
-
-	/** @var httpRequest */
-	protected $httpRequest;
-
-	/** @var mailHelper */
-	protected $mailHelper;
-
+	private $svnHelper;
+	private $httpRequest;
+	private $mailHelper;
 	private $paginator;
 	private $logTable;
 
@@ -33,10 +27,10 @@ class LogPresenter extends ProjectPresenter
 		$this->paginator->itemCount 	= $this->svnHelper->getLogSize();
 
 		$this->logTable = new \DixonsCz\Chuck\Log\Table($this, 'logTable');
-
 	}
 
-	public function injectSvnHelper(DixonsCz\Chuck\Svn\Helper $svnHelper)
+
+	public function injectSvnHelper(Helper $svnHelper)
 	{
 		$this->svnHelper = $svnHelper;
 	}
