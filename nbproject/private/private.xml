@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/nano/workspace/www/chuck/components/MailHelper/Mailer.php</file>
+            <file>file:/home/nano/workspace/www/chuck/app/templates/@layout.latte</file>
+            <file>file:/home/nano/workspace/www/chuck/components/MailHelper/LogMail.php</file>
+            <file>file:/home/nano/workspace/www/chuck/components/MailHelper/IMail.php</file>
+            <file>file:/home/nano/workspace/www/chuck/app/presenters/DashboardPresenter.php</file>
+            <file>file:/home/nano/workspace/www/chuck/components/MailHelper/IMailer.php</file>
+            <file>file:/home/nano/workspace/www/chuck/components/MailHelper/MailHelper.php</file>
+            <file>file:/home/nano/workspace/www/chuck/app/presenters/BasePresenter.php</file>
+        </group>
+    </open-files>
+</project-private>
