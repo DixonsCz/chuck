@@ -2,7 +2,7 @@
 
 namespace DixonsCz\Chuck\Presenters;
 
-use DixonsCz\Chuck\Svn\Helper;
+use DixonsCz\Chuck\Svn\IHelper;
 use Nette\Http\IRequest;
 
 /**
@@ -26,14 +26,10 @@ class LogPresenter extends ProjectPresenter
 		$this->paginator->itemsPerPage 	= 30;
 		$this->paginator->itemCount 	= $this->svnHelper->getLogSize();
 
+
 		$this->logTable = new \DixonsCz\Chuck\Log\Table($this, 'logTable');
 	}
 
-
-	public function injectSvnHelper(Helper $svnHelper)
-	{
-		$this->svnHelper = $svnHelper;
-	}
 
 	public function injectHttpRequest(IRequest $httpRequest)
 	{
@@ -45,7 +41,12 @@ class LogPresenter extends ProjectPresenter
 		$this->mailHelper = $mailHelper;
 	}
 
-    /**
+	public function injectSvnHelper(IHelper $svnHelper)
+	{
+		$this->svnHelper = $svnHelper;
+	}
+
+	/**
      * Renders list of log with a visual paginator
      *
      * @param string $project
