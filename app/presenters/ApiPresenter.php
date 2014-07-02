@@ -22,6 +22,30 @@ class ApiPresenter extends ProjectPresenter
     }
 
     /**
+     * @param string $status status token OK/NOK
+     * @param string $response
+     * @throws \Nette\Application\AbortException
+     */
+    public function sendApiResponse($status, $response)
+    {
+        switch($this->getParameter('format')) {
+            case "raw":
+                \Nette\Diagnostics\Debugger::$bar = FALSE;
+                parent::sendResponse(new \Nette\Application\Responses\TextResponse($response));
+                break;
+
+            case "json":
+            default:
+                parent::sendJson(array(
+                    'status' => $status,
+                    'message' => $response,
+                ));
+        }
+
+        $this->terminate();
+    }
+
+    /**
      * POST: Creates new tag
      * GET: get tag list
      *
@@ -32,13 +56,15 @@ class ApiPresenter extends ProjectPresenter
     public function actionUatTags($project, $id = null)
     {
         $response = "";
+        $tag = $id;
+
         try {
             switch ($this->getRequest()->getMethod()) {
                 case "POST":
                     if(!is_string($id)) {
                         throw new \InvalidArgumentException("Missing tag name");
                     }
-                    $response = $this->service->createTag($project, "UAT", $id);
+                    $response = $this->service->createTag($project, "UAT", $tag);
                     break;
 
                 case "GET":
@@ -49,16 +75,10 @@ class ApiPresenter extends ProjectPresenter
                     throw new \DixonsCz\Chuck\Api\InvalidMethodException("Unsupported HTTP method.");
             }
         } catch(\Exception $e) {
-            $this->sendJson(array(
-                'status' => 'NOK',
-                'message' => $e->getMessage(),
-            ));
+            $this->sendApiResponse('NOK', $e->getMessage());
         }
 
-        $this->sendJson(array(
-            'status' => 'OK',
-            'message' => $response,
-        ));
+        $this->sendApiResponse('OK', $response);
     }
 
     /**
@@ -70,26 +90,22 @@ class ApiPresenter extends ProjectPresenter
      */
     public function actionHistory($project, $id = null)
     {
+        $tag = $id;
+
         $response = "";
         try {
             switch ($this->getRequest()->getMethod()) {
                 case "GET":
-                    $response = $this->service->getTagHistory($project, $id, true);
+                    $response = $this->service->getTagHistory($project, $tag, true);
                     break;
 
                 default:
                     throw new \DixonsCz\Chuck\Api\InvalidMethodException("Unsupported HTTP method.");
             }
         } catch(\Exception $e) {
-            $this->sendJson(array(
-                    'status' => 'NOK',
-                    'message' => $e->getMessage(),
-                ));
+            $this->sendApiResponse('NOK', $e->getMessage());
         }
 
-        $this->sendJson(array(
-                'status' => 'OK',
-                'message' => $response,
-            ));
+        $this->sendApiResponse('OK', $response);
     }
 }
