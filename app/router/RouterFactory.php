@@ -13,6 +13,7 @@ class RouterFactory
     public static function createRouter()
     {
         $router = new \Nette\Application\Routers\RouteList();
+        $router[] = new Route('index.php', 'Dashboard:default');
         $router[] = new Route('api/<project>/<action>[/<id>]', array('presenter' => 'Api'));
         $router[] = new Route('<presenter>/<action>[/<id>]', 'Dashboard:default');
         return $router;
