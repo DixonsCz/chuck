@@ -72,7 +72,7 @@ class Helper implements IHelper
     {
         $auth = "";
         if ($this->credentials) {
-            $auth = "--username \"{$this->credentials['user']}\" --password \"{$this->credentials['password']}\" --no-auth-cache";
+            $auth = "--username \"{$this->credentials['user']}\" --password \"{$this->credentials['password']}\" --no-auth-cache --trust-server-cert --non-interactive ";
         }
 
         $ret = "svn {$auth} ";
@@ -125,7 +125,7 @@ class Helper implements IHelper
      */
     private function executeProjectCommand($command, $xml = true)
     {
-        $cmd = $this->getSvnExecutable() . " --non-interactive --trust-server-cert " . $command . ' ' . ($xml == true ? '--xml' : '') . ' "' . $this->projects[$this->project]['repositoryPath'] . '"';
+        $cmd = $this->getSvnExecutable() . " " . $command . ' ' . ($xml == true ? '--xml' : '') . ' "' . $this->projects[$this->project]['repositoryPath'] . '"';
 
         $this->panel->startCommand($cmd);
         $result = $this->executeCommand($cmd);
