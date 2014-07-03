@@ -191,7 +191,7 @@ class Helper implements IHelper
         $tagPosition = array_search($tagName, $tagNames);
 
         // check if there is preceding tag and if it's really UAT
-        if(!isset($tagName[$tagPosition-1]) || strstr($tagNames[$tagPosition-1], 'UAT') === false) {
+        if(!isset($tagNames[$tagPosition-1]) || strstr($tagNames[$tagPosition-1], 'UAT') === false) {
             throw new \DixonsCz\Chuck\Api\SvnException("Unable to create changelog from tag {$tagName}");
         }
 
