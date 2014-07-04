@@ -4,6 +4,8 @@ namespace DixonsCz\Chuck\Presenters;
 
 /**
  * @author Michal Svec <michal.svec@dixonsretail.com>
+ *
+ * @deprecated this presenter is not used nor updates - in case of need, see logPresenter for a list of similar features
  */
 class TagPresenter extends ProjectPresenter
 {

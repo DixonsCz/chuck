@@ -42,7 +42,7 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
     {
         $this->template->projectMenu = array(
             'Info:default' => 'Info',
-            'Tag:list' => 'Tags',
+//            'Tag:list' => 'Tags',     // @depracated
             'Log:list' => 'Log',
         );
 
