@@ -365,9 +365,7 @@ class Helper implements IHelper
     public function doesBranchExist($project, $branchName)
     {
         $result = $this->executeRemoteCommand("ls --depth immediates", "/branches/{$branchName}");
-
         $xml = simplexml_load_string($result);
-
         return $xml->list->entry->count() > 0;
     }
 
@@ -376,10 +374,12 @@ class Helper implements IHelper
      */
     public function doesTagExist($project, $tagName)
     {
+        $tagList = $this->getTagList();
+        return isset($tagList[$tagName]);
+/*
         $result = $this->executeRemoteCommand("ls --depth immediates", "/tags/{$tagName}");
-
         $xml = simplexml_load_string($result);
-
         return $xml->list->entry->count() > 0;
+*/
     }
 }
