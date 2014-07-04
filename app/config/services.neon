@@ -1,0 +1,46 @@
+    services:
+        router:
+            factory: DixonsCz\Chuck\RouterFactory::createRouter
+        svnDebugBar:
+            class: DixonsCz\Chuck\Svn\Panel
+        streamHandler:
+            class: Monolog\Handler\StreamHandler
+            arguments: ['../log/log.txt', 200]
+        netteHandler:
+            class: DixonsCz\Chuck\Logger\Handler\NetteBarDumpHandler
+            arguments: [200]
+        logger:
+            class: Monolog\Logger
+            arguments: ['main']
+        svnHelper:
+            class: DixonsCz\Chuck\Svn\Helper
+            arguments: [%tempDir%, @svnDebugBar, %svn.credentials%, %projects%]
+        jiraHelper:
+            class: DixonsCz\Chuck\Jira\Wrapper
+            arguments: [@jiraIssuesRepository, @logger]
+        logProcessor:
+            class: DixonsCz\Chuck\Log\Processor
+            arguments: [@jiraHelper]
+        mailHelper:
+            class: MailHelper
+        jiraIssuesRepository:
+            class: DixonsCz\Chuck\Jira\Issue\Repository
+        jiraRequestsFactory:
+            class: DixonsCz\Chuck\Jira\Request\Factory
+        jiraHttpRequest:
+            class: DixonsCz\Chuck\Jira\HttpRequest
+        jiraClient:
+            class: DixonsCz\Chuck\Jira\Client
+        singleIssueTransformer:
+            class: DixonsCz\Chuck\Jira\Response\Transformer\SingleIssue
+        jiraConfiguration:
+            class: DixonsCz\Chuck\Jira\Configuration
+            arguments: [%jiraApiPath%, %jira.credentials%]
+        revisionMessageParser:
+            class: DixonsCz\Chuck\Svn\RevisionMessage\Parser
+        changelogGenerator:
+            class: DixonsCz\Chuck\Changelog\Generator
+            arguments: [%projects%, [jiraPath: %jiraPath% ]]
+        apiService:
+            class: DixonsCz\Chuck\Api\ApiService
+            arguments: [@svnHelper, @logProcessor, @changelogGenerator]
