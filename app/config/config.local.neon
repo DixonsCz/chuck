@@ -10,24 +10,24 @@ parameters:
             label: FO Currys
             repositoryPath: /cygdrive/d/www/fo-currys
             sourcePath: /cygdrive/d/www/fo-currys/src
-            changelogTpl: dsg_front.latte
+            sendTo: 'michal.svec@dixonsretail.com'
+        fo-uk:
+            label: FO UK
+            repositoryPath: /cygdrive/d/www/fo-uk
+            sourcePath: /cygdrive/d/www/fo-uk
         bo-currys:
             label: BO Currys
             repositoryPath: /cygdrive/d/www/bo-currys
             sourcePath: /cygdrive/d/www/bo-currys
-            changelogTpl: dsg_front.latte
         fo-pcw:
             label: FO PCWorld
             repositoryPath: /cygdrive/d/www/fo-pcw
             sourcePath: /cygdrive/d/www/fo-pcw
-            changelogTpl: dsg_front.latte
         bo-pcw:
             label: BO PCWorld
             repositoryPath: /cygdrive/d/www/bo-pcw
             sourcePath: /cygdrive/d/www/bo-pcw
-            changelogTpl: dsg_front.latte
         gateway:
             label: Gateway
             repositoryPath: /cygdrive/d/www/gateway
             sourcePath: /cygdrive/d/www/gateway
-            changelogTpl: dsg_front.latte

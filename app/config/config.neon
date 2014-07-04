@@ -6,6 +6,9 @@ common:
         jiraApiPath: http://jira.dixons.co.uk/rest/api/latest/
         jiraPath: http://jira.dixons.co.uk/
         svnUrl: https://svn.dixonsretail.net
+        changelogWikiTpl: wiki.latte
+        changelogMailTpl: mail.latte
+        changelogSendTo: ISeCommAppDevFront@dixonsretail.com
 
     nette:
         application:

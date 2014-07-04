@@ -40,7 +40,7 @@
             class: DixonsCz\Chuck\Svn\RevisionMessage\Parser
         changelogGenerator:
             class: DixonsCz\Chuck\Changelog\Generator
-            arguments: [%projects%, [jiraPath: %jiraPath% ]]
+            arguments: [%changelogWikiTpl%, %changelogWikiTpl%, %projects%, [jiraPath: %jiraPath% ]]
         apiService:
             class: DixonsCz\Chuck\Api\ApiService
             arguments: [@svnHelper, @logProcessor, @changelogGenerator]

@@ -16,13 +16,27 @@ class Generator implements IGenerator
     private $tplVariables;
 
     /**
+     * @var string
+     */
+    private $defaultWikiTpl;
+
+    /**
+     * @var string
+     */
+    private $defaultMailTpl;
+
+    /**
+     * @param string $changelogWiki
+     * @param string $changelogMail
      * @param array $projects project configuration
      * @param array $tplVariables variables passed to changelog template
      */
-    public function __construct(array $projects, $tplVariables = array())
+    public function __construct($changelogWiki, $changelogMail, array $projects, $tplVariables = array())
     {
         $this->projects = $projects;
         $this->tplVariables = $tplVariables;
+        $this->defaultMailTpl = $changelogMail;
+        $this->defaultWikiTpl = $changelogWiki;
     }
 
     /**
@@ -33,7 +47,11 @@ class Generator implements IGenerator
      */
     protected function getTemplateFile($project)
     {
-        return isset($this->projects[$project]['changelogTpl']) ? $this->projects[$project]['changelogTpl'] : 'default.latte';
+        if (isset($this->projects[$project]['changelogTpl'])) {
+            return $this->projects[$project]['changelogTpl'];
+        } else {
+            return $this->defaultWikiTpl;
+        }
     }
 
     /**

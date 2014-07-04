@@ -26,10 +26,8 @@ $configurator->createRobotLoader()
 // basic environment resolution
 $environment = null;
 
-// specific configuration for Dixons machines
-if (false !== getenv('EM_ENV')) { // on DEV EM_ENV is set
-    $environment = "dixdev";
-} elseif (false !== strstr($_SERVER["SERVER_SOFTWARE"], "nginx")) { // jenkins server runs on nginx
+// jenkins server runs on nginx
+if (false !== strstr($_SERVER["SERVER_SOFTWARE"], "nginx")) {
     $environment = "jenkins";
     $configurator->setDebugMode(false);
     \Nette\Diagnostics\Debugger::enable(Debugger::PRODUCTION);

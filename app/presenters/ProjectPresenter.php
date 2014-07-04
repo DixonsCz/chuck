@@ -54,8 +54,11 @@ abstract class ProjectPresenter extends \DixonsCz\Chuck\Presenters\BasePresenter
      */
     protected function getTemplateForProject($project)
     {
-        return isset($this->context->parameters['projects'][$project]['changelogTpl']) ?
-            $this->context->parameters['projects'][$project]['changelogTpl'] : 'default.latte';
+        if (isset($this->context->parameters['projects'][$project]['changelogTpl'])) {
+            return $this->context->parameters['projects'][$project]['changelogTpl'];
+        } else {
+            return $this->context->parameters['changelogWikiTpl'];
+        }
     }
 
     /**
@@ -90,7 +93,9 @@ abstract class ProjectPresenter extends \DixonsCz\Chuck\Presenters\BasePresenter
     protected function getChangelogTemplate($template, $ticketLog)
     {
         // #necessary to create new template, because $this->createTemplate() needs block and includes layout file
-        $template = new \Nette\Templating\FileTemplate(APP_DIR . '/templates/Log/changelogTpls/'.$template);
+        $template = new \Nette\Templating\FileTemplate(
+            APP_DIR . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'Log' . DIRECTORY_SEPARATOR . 'changelogTpls' . DIRECTORY_SEPARATOR . $template
+        );
         $template->onPrepareFilters[] = callback($this, 'templatePrepareFilters');
         $template->registerHelperLoader('Nette\Templating\Helpers::loader');
         $template->baseUri = $template->baseUrl = rtrim($this->getHttpRequest()->getUrl()->getBaseUrl(), '/');
@@ -99,5 +104,23 @@ abstract class ProjectPresenter extends \DixonsCz\Chuck\Presenters\BasePresenter
         $template->jiraPath = $this->context->parameters['jiraPath'];
 
         return $template;
+    }
+
+    /**
+     * Get an email to send changelog to.
+     *
+     * Check for value in project settings or use default one from config.neon
+     *
+     * @param  string $project
+     * @return string
+     */
+    protected function getSendToMail($project)
+    {
+        if(isset($this->context->parameters['projects'][$this->project]['sendTo'])) {
+            return $this->context->parameters['projects'][$this->project]['sendTo'];
+        }
+        else {
+            return $this->context->parameters['changelogSendTo'];
+        }
     }
 }

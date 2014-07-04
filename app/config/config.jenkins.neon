@@ -13,131 +13,89 @@ parameters:
             label: BO Currys
             repositoryPath: /var/lib/jenkins/jobs/bo-currys-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/bo-currys-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         fo-pcw:
             label: FO PC World
             repositoryPath: /var/lib/jenkins/jobs/fo-pcw-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/fo-pcw-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         bo-pcw:
             label: BO PC World
             repositoryPath: /var/lib/jenkins/jobs/bo-pcw-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/bo-pcw-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         bo-translations:
             label: BO Translations
             repositoryPath: /var/lib/jenkins/jobs/bo-translations-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/bo-translations-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
 
         gateway:
             label: Gateway
             repositoryPath: /var/lib/jenkins/jobs/gateway-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/gateway-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         automailer:
             label: Automailer
             repositoryPath: /var/lib/jenkins/jobs/automailer-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/automailer-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
 
         bo-brain:
             label: BO Brain
             repositoryPath: /var/lib/jenkins/jobs/bo-brain-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/bo-brain-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         product:
             label: BO Product
             repositoryPath: /var/lib/jenkins/jobs/product-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/product-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         wsint-brain:
             label: WS Brain
             repositoryPath: /var/lib/jenkins/jobs/wsint-brain-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/wsint-brain-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
 
         bo-client:
             label: BO Client
             repositoryPath: /var/lib/jenkins/jobs/bo-client-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/bo-client-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         ws-client:
             label: WS Client
             repositoryPath: /var/lib/jenkins/jobs/ws-client-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/ws-client-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
 
 
         fo-core:
             label: FO Core
             repositoryPath: /var/lib/jenkins/jobs/fo-core-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/fo-core-common/workspace/source/core
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         bo-core:
             label: BO Core
             repositoryPath: /var/lib/jenkins/jobs/bo-core-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/bo-core-common/workspace/source/core
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
 
         fraudbuster:
             label: Fraudbuster
             repositoryPath: /var/lib/jenkins/jobs/fraudbuster-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/fraudbuster-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         geoloc:
             label: Geoloc
             repositoryPath: /var/lib/jenkins/jobs/geoloc-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/geoloc-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         scud:
             label: Scud
             repositoryPath: /var/lib/jenkins/jobs/scud-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/scud-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         ws-scud:
             label: WS Scud
             repositoryPath: /var/lib/jenkins/jobs/ws-scud-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/ws-scud-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         shopbot:
             label: Shopbot
             repositoryPath: /var/lib/jenkins/jobs/shopbot-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/shopbot-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         sourcing:
             label: Sourcing
             repositoryPath: /var/lib/jenkins/jobs/sourcing-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/sourcing-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         webcall:
             label: Webcall
             repositoryPath: /var/lib/jenkins/jobs/webcall-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/webcall-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com
         ws-webcall:
             label: WS Webcall
             repositoryPath: /var/lib/jenkins/jobs/ws-webcall-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/ws-webcall-common/workspace/source
-            changelogTpl: dsg_front.latte
-            sendTo: ISeCommAppDevFront@dixonsretail.com

@@ -1,0 +1,47 @@
+|| || *UAT* || *PROD* || <br>
+|*Release Tag* | {if isset($releaseTag)}  {$releaseTag} | {$releaseTag} {else} | {/if} | <br>
+|*Rollback Tag* | {if isset($rollbackTag)} {$rollbackTag} | {$rollbackTag} {else} | {/if} | <br>
+|*Release Ticket* | | [PRODCRM-XXX|{$jiraPath}browse/PRODCRM-XXX] | <br>
+|*Release Dates*  | (/) {date('Y-m-d')} | (?) {l}color:#808080{r}{date('Y-m-d')}{l}color{r} | <br>
+<br>
+{define #logHeader}
+|| Type || Priority || Key || Summary ||
+{/define}
+
+{define #confluenceLog}
+{if isset($items) && !empty($items)}
+	<br />
+	{include #logHeader}<br />
+	{foreach $items as $log}
+		{if isset($log['jira']) && !empty($log['jira'])}
+			| !{$log['jira']['typeIcon']}|alt={$log['jira']['typeName']}! {$log['jira']['typeName']}
+			| !{$log['jira']['priorityIcon']}|alt={$log['jira']['priority']}! {$log['jira']['priority']}
+			| [{$log['ticket']}|{$jiraPath}browse/{$log['ticket']}]
+			| {$log['jira']['summary']} |
+{*			| !{$log['jira']['statusIcon']}|alt={$log['jira']['status']}! {$log['jira']['status']} *}
+		{else}
+			|
+			|
+			| {if !empty($log['ticket'])} [{$log['ticket']}|{$jiraPath}browse/{$log['ticket']}] {/if}
+			| {$log['message']} |
+		{/if}
+		<br />
+	{/foreach}
+{/if}
+{/define}
+
+{if isset($ticketLog['ALL']) && !empty($ticketLog['ALL'])}
+	{include #confluenceLog, 'items' => $ticketLog['ALL']}
+	<br /><br />
+{/if}
+<br>
+
+
+{l}note:icon=false|title=SQL Scripts{r} <br>
+* &lt;FILE&gt; <br>
+{l}note{r} <br>
+<br>
+{l}note:icon=false|title=Static Files changes{r} <br>
+* &lt;FILE&gt; <br>
+{l}note{r}<br>
+<br>
