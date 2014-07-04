@@ -11,23 +11,30 @@ class ApiService
     private $helper;
 
     /**
-     * @var \DixonsCz\Chuck\Changelog\Generator
+     * @var \DixonsCz\Chuck\Changelog\Formatter
      */
-    private $tplGenerator;
+    private $tplFormatter;
 
     /**
      * @var \DixonsCz\Chuck\Log\Processor
      */
     private $logProcessor;
 
+    /**
+     * @var \DixonsCz\Email\Mailer
+     */
+    private $mailer;
+
     public function __construct(
         \DixonsCz\Chuck\Svn\IHelper $svnHelper,
         \DixonsCz\Chuck\Log\Processor $logProcessor,
-        \DixonsCz\Chuck\Changelog\IGenerator $tplGenerator
+        \DixonsCz\Chuck\Changelog\IFormatter $tplFormatter,
+        \DixonsCz\Email\IMailer $mailer
     ) {
         $this->helper = $svnHelper;
-        $this->tplGenerator = $tplGenerator;
+        $this->tplFormatter = $tplFormatter;
         $this->logProcessor = $logProcessor;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -64,7 +71,6 @@ class ApiService
         return $this->helper->createTag($tagName, "Creating: {$tagName}", "branches/{$sourceBranch}");
     }
 
-
     /**
      * @param string $project
      * @param string $tagName
@@ -80,6 +86,22 @@ class ApiService
             return $ticketList;
         }
 
-        return $this->tplGenerator->getLogFormatted($project, $ticketList);
+        return $this->tplFormatter->formatLog($project, $ticketList, 'wiki');
     }
-} 
+
+    /**
+     * @param $project
+     * @param $tagName
+     * @return bool
+     */
+    public function sendUatReleaseMail($project, $tagName)
+    {
+        $logList = $this->helper->getUATTagChangelog($tagName);
+        $ticketList = $this->logProcessor->generateTicketLog($logList);
+        $formatted = $this->tplFormatter->formatLog($project, $ticketList, 'mail');
+
+        $this->mailer->sendUatChangelog($formatted);
+
+        return "Mail sent";
+    }
+}

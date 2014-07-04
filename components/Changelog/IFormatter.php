@@ -2,7 +2,7 @@
 
 namespace DixonsCz\Chuck\Changelog;
 
-interface IGenerator
+interface IFormatter
 {
     /**
      * Generates HTML/markup template for project
@@ -11,5 +11,5 @@ interface IGenerator
      * @param array $log
      * @return string
      */
-    public function getLogFormatted($project, array $log);
+    public function formatLog($project, array $log);
 }

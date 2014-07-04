@@ -3,7 +3,7 @@
 namespace DixonsCz\Chuck\Changelog;
 
 
-class Generator implements IGenerator
+class Formatter implements IFormatter
 {
     /**
      * @var array
@@ -57,7 +57,7 @@ class Generator implements IGenerator
     /**
      * {@inheritdoc}
      */
-    public function getLogFormatted($project, array $log)
+    public function formatLog($project, array $log, $format = 'wiki')
     {
         $template = $this->createTemplate($project);
         $template->ticketLog = $log;
@@ -81,4 +81,4 @@ class Generator implements IGenerator
 
         return $template;
     }
-} 
+}

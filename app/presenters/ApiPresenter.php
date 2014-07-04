@@ -108,4 +108,28 @@ class ApiPresenter extends ProjectPresenter
 
         $this->sendApiResponse('OK', $response);
     }
+
+    /**
+     * @param string $project
+     * @param string $id
+     */
+    public function actionUatReleaseMail($project, $id)
+    {
+        $tag = $id;
+        $response = "";
+        try {
+            switch ($this->getRequest()->getMethod()) {
+                case "POST":
+                    $response = $this->service->sendUatReleaseMail($project, $tag);
+                    break;
+
+                default:
+                    throw new \DixonsCz\Chuck\Api\InvalidMethodException("Unsupported HTTP method.");
+            }
+        } catch(\Exception $e) {
+            $this->sendApiResponse('NOK', $e->getMessage());
+        }
+
+        $this->sendApiResponse('OK', $response);
+    }
 }

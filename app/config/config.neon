@@ -10,6 +10,12 @@ common:
         changelogMailTpl: mail.latte
         changelogSendTo: ISeCommAppDevFront@dixonsretail.com
 
+        mailer:
+            sender: 'no-reply <no-reply@dixonsretail.com>'
+            uat:
+                subject: "UAT release changelog"
+                recipients: ['michal.svec@dixonsretail.com']
+
     nette:
         application:
             errorPresenter: Error
