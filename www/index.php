@@ -17,6 +17,7 @@ require ROOT_DIR . '/vendor/autoload.php';
 $configurator = new \Nette\Configurator();
 $configurator->setDebugMode(true);
 $configurator->setTempDirectory(ROOT_DIR . '/temp');
+$configurator->enableDebugger(__DIR__ . '/../log');
 $configurator->createRobotLoader()
     ->addDirectory(APP_DIR)
     ->addDirectory(ROOT_DIR . '/components')
