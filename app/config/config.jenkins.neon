@@ -7,7 +7,7 @@ parameters:
             label: FO Currys
             repositoryPath: /var/lib/jenkins/jobs/fo-currys-common/workspace/source
             sourcePath: /var/lib/jenkins/jobs/fo-currys-common/workspace/source
-            changelogTpl: dsg_front.latte
+            changelogTpl: wiki.latte
             sendTo: ISeCommAppDevFront@dixonsretail.com
         bo-currys:
             label: BO Currys
