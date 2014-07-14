@@ -3,3 +3,10 @@ vendor/
 app/config/secret.neon
 temp/*
 log/*
+composer.lock
+bin/behat
+bin/behat.bat
+bin/phpunit
+bin/phpunit.bat
+bin/webunit
+bin/webunit.bat
