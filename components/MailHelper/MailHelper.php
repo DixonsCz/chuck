@@ -5,7 +5,7 @@ use Nette\Mail\Message,
     Nette\Latte\Engine;
 
 /**
- *
+ * @deprecated unclear api of this class. Avoid it!
  * @author Petr Jurasek <petr.jurasek@dixonsretail.com>
  */
 class MailHelper
