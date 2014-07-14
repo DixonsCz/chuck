@@ -7,8 +7,8 @@ interface IResponse
     
     /**
      * @param Response\ITransformer $transformer
-     * @reutrn mixed
+     * @return mixed
      */
-    function transform(Response\ITransformer $transformer);
+    public function transform(Response\ITransformer $transformer);
     
 }

@@ -10,6 +10,6 @@ interface IClient
      * @param string $path
      * @return Response
      */
-    function requestPath($path);
+    public function requestPath($path);
     
 }

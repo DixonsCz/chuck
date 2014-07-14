@@ -10,6 +10,6 @@ interface IRepository
      * @param string $key
      * @return \DixonsCz\Chuck\Jira\IIssue
      */
-    function findIssueByKey($key);
+    public function findIssueByKey($key);
     
 }

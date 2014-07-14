@@ -9,6 +9,6 @@ interface IRequest
      * @param IClient $client
      * @return IResponse
      */
-    function send(IClient $client);
+    public function send(IClient $client);
     
 }

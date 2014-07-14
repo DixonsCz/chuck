@@ -9,6 +9,6 @@ interface IFactory
      * @param string $key
      * @return Issue
      */
-    function createIssueRequestByKey($key);
+    public function createIssueRequestByKey($key);
     
 }

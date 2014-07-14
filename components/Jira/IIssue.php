@@ -8,31 +8,31 @@ interface IIssue
     /**
      * @return mixed[]
      */
-    function toArray();
-    
-    /**
-     * @return bool
-     */    
-    function isRFC();
-    
-    /**
-     * @return bool
-     */    
-    function isBug();
-    
-    /**
-     * @return bool
-     */    
-    function isSupportRequest();
+    public function toArray();
     
     /**
      * @return bool
      */
-    function isOther();
+    public function isRFC();
+    
+    /**
+     * @return bool
+     */
+    public function isBug();
+    
+    /**
+     * @return bool
+     */
+    public function isSupportRequest();
+    
+    /**
+     * @return bool
+     */
+    public function isOther();
     
     /**
      * @param \DixonsCz\Chuck\Svn\IRevisionMessage $message
      */
-    function attachRevisionMessage(\DixonsCz\Chuck\Svn\IRevisionMessage $message);
+    public function attachRevisionMessage(\DixonsCz\Chuck\Svn\IRevisionMessage $message);
     
 }
