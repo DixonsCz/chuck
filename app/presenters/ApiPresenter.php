@@ -26,7 +26,7 @@ class ApiPresenter extends ProjectPresenter
      * @param string $response
      * @throws \Nette\Application\AbortException
      */
-    public function sendApiResponse($status, $response)
+    private function sendApiResponse($status, $response)
     {
         switch($this->getParameter('format')) {
             case "raw":
