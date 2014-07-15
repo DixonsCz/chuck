@@ -1,47 +1,58 @@
-|| || *UAT* || *PROD* || <br>
-|*Release Tag* | {if isset($releaseTag)}  {$releaseTag} | {$releaseTag} {else} | {/if} | <br>
-|*Rollback Tag* | {if isset($rollbackTag)} {$rollbackTag} | {$rollbackTag} {else} | {/if} | <br>
-|*Release Ticket* | | [PRODCRM-XXX|{$jiraPath}browse/PRODCRM-XXX] | <br>
-|*Release Dates*  | (/) {date('Y-m-d')} | (?) {l}color:#808080{r}{date('Y-m-d')}{l}color{r} | <br>
-<br>
-{define #logHeader}
-|| Type || Priority || Key || Summary ||
-{/define}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Your Message Subject or Title</title>
+	<style type="text/css">
+		#outlook a { padding:0; } /* Force Outlook to provide a "view in browser" menu link. */
+		body{ width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0; }
+		.ExternalClass { width:100%; } /* Force Hotmail to display emails at full width */
+		.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }
+		#backgroundTable { margin:0; padding:0; width:100% !important; line-height: 100% !important; }
 
-{define #confluenceLog}
-{if isset($items) && !empty($items)}
-	<br />
-	{include #logHeader}<br />
-	{foreach $items as $log}
+		img { outline:none; text-decoration:none; -ms-interpolation-mode: bicubic; }
+		a img { border:none; }
+		.image_fix { display:block; }
+
+		p { margin: 1em 0; }
+
+		h1, h2, h3, h4, h5, h6 { color: black !important; }
+		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: blue !important; }
+		h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+			color: red !important; /* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+		 }
+		h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+			color: purple !important; /* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */
+		 }
+
+		table td { border-collapse: collapse; }
+		table {  border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;  }
+	</style>
+
+</head>
+<body>
+
+<h1>Changelog {$project} {$tag}</h1>
+
+<table cellpadding="0" cellspacing="0" border="1" id="backgroundTable">
+
+	{foreach $ticketLog['ALL'] as $log}
+	<tr>
 		{if isset($log['jira']) && !empty($log['jira'])}
-			| !{$log['jira']['typeIcon']}|alt={$log['jira']['typeName']}! {$log['jira']['typeName']}
-			| !{$log['jira']['priorityIcon']}|alt={$log['jira']['priority']}! {$log['jira']['priority']}
-			| [{$log['ticket']}|{$jiraPath}browse/{$log['ticket']}]
-			| {$log['jira']['summary']} |
-{*			| !{$log['jira']['statusIcon']}|alt={$log['jira']['status']}! {$log['jira']['status']} *}
+		<td><img src="{$log['jira']['typeIcon']}" alt="{$log['jira']['typeName']}"> {$log['jira']['typeName']}</td>
+		<td><img src="{$log['jira']['priorityIcon']}" alt="{$log['jira']['priority']}"> {$log['jira']['priority']} </td>
+		<td><a href="{$jiraPath}browse/{$log['ticket']}">{$log['ticket']}</a> </td>
+		<td>{$log['jira']['summary']} </td>
 		{else}
-			|
-			|
-			| {if !empty($log['ticket'])} [{$log['ticket']}|{$jiraPath}browse/{$log['ticket']}] {/if}
-			| {$log['message']} |
+		<td></td>
+		<td></td>
+		<td>{if !empty($log['ticket'])} [{$log['ticket']}|{$jiraPath}browse/{$log['ticket']}] {/if}</td>
+		<td>{$log['message']}</td>
 		{/if}
-		<br />
+	</tr>
 	{/foreach}
-{/if}
-{/define}
+</table>
 
-{if isset($ticketLog['ALL']) && !empty($ticketLog['ALL'])}
-	{include #confluenceLog, 'items' => $ticketLog['ALL']}
-	<br /><br />
-{/if}
-<br>
-
-
-{l}note:icon=false|title=SQL Scripts{r} <br>
-* &lt;FILE&gt; <br>
-{l}note{r} <br>
-<br>
-{l}note:icon=false|title=Static Files changes{r} <br>
-* &lt;FILE&gt; <br>
-{l}note{r}<br>
-<br>
+</body>
+</html>
