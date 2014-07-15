@@ -41,20 +41,21 @@ class LogPresenter extends ProjectPresenter
 
         // generating log for confluence
         $selectedLogs = array();
-        if (isset($_GET['log']) && !empty($_GET['log'])) {
+        $log = $this->getParameter('log');
+        if (!empty($log)) {
 
             $changeLogList = array();
-            foreach ($_GET['log'] as $revision) {
+            foreach ($log as $revision) {
                 $changeLogList[$revision] = $logList[$revision];
                 $selectedLogs[] = $revision;
             }
 
-            if (isset($_GET['emailSend']) && $_GET['emailSend'] == 'email') {
+            if ($this->getParameter('emailSend') == 'email') {
                 $this->context->mailHelper->getMail(
                     $this->formatLog($changeLogList),
                     $this->template->projectName,
                     $this->project,
-                    $_GET['toReleaseNote'],
+                    $this->getParameter('toReleaseNote'),
                     'Line'
                 );
                 $this->flashMessage('Mail was sent!', 'success');

@@ -19,18 +19,19 @@ class TagPresenter extends ProjectPresenter
         $this->template->selectedTags = array();
         $this->template->mailTo = $this->context->parameters['projects'][$this->project]['sendTo'];
 
-        if (isset($_GET['tag']) && !empty($_GET['tag']) && is_array($_GET['tag'])) {
-            if (count($_GET['tag']) != 2) {
+        $tag = $this->getParameter('tag');
+        if (is_array($tag)) {
+            if (count($tag) != 2) {
                 $this->flashMessage("Please, select exactly 2 tags!", 'error');
                 $this->redirect('this');
             }
 
-            if (isset($_GET['sendReleaseNote'])) {
-                $this->sendReleaseNote($_GET['tag'], $_GET['toReleaseNote']);
+            if ($this->getParameter('sendReleaseNote')) {
+                $this->sendReleaseNote($tag, $this->getParameter('toReleaseNote'));
             }
 
-            if (isset($_GET['confluenceLog'])) {
-                $this->generateChangelog($project, $_GET['tag']);
+            if ($this->getParameter('confluenceLog')) {
+                $this->generateChangelog($project, $tag);
             }
         }
 
