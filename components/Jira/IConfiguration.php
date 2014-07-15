@@ -9,18 +9,18 @@ interface IConfiguration
      * 
      * @return string
      */
-    function getApiUrl();
+    public function getApiUrl();
     
     /**
      * 
      * @return string
      */
-    function getUsername();
+    public function getUsername();
     
     /**
      * 
      * @return string
      */
-    function getPassword();
+    public function getPassword();
     
 }

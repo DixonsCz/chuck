@@ -8,5 +8,5 @@ interface IParser
      * @param string $message
      * @return \DixonsCz\Chuck\Svn\IRevisionMessage
      */
-    function parseFromString($message);
+    public function parseFromString($message);
 }
