@@ -46,8 +46,8 @@ class ApiPresenter extends ProjectPresenter
     }
 
     /**
-     * POST: Creates new tag
-     * GET: get tag list
+     * POST /api/<application>/uat-tags/<tag-name>  Creates new tag
+     * GET  /api/<application>/uat-tags/            lists uat tags
      *
      * @param  string $project
      * @param  string|NULL $id
@@ -82,7 +82,7 @@ class ApiPresenter extends ProjectPresenter
     }
 
     /**
-     * Gets history for tag
+     * GET /api/<application>/history/<tag-name> returns history for tag in given application
      *
      * @param  string $project
      * @param  string|null $id
@@ -110,6 +110,10 @@ class ApiPresenter extends ProjectPresenter
     }
 
     /**
+     * Sends UAT release mail to addresses defined in configuration file
+     *
+     * POST /api/<application>/uat-release-mail/<tag-name>
+     *
      * @param string $project
      * @param string $id
      */
