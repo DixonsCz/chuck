@@ -94,7 +94,7 @@ abstract class ProjectPresenter extends \DixonsCz\Chuck\Presenters\BasePresenter
     {
         // #necessary to create new template, because $this->createTemplate() needs block and includes layout file
         $template = new \Nette\Templating\FileTemplate(
-            APP_DIR . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'Log' . DIRECTORY_SEPARATOR . 'changelogTpls' . DIRECTORY_SEPARATOR . $template
+            $this->context->parameters['appDir'] . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'Log' . DIRECTORY_SEPARATOR . 'changelog' . DIRECTORY_SEPARATOR . $template.'.latte'
         );
         $template->onPrepareFilters[] = callback($this, 'templatePrepareFilters');
         $template->registerHelperLoader('Nette\Templating\Helpers::loader');
