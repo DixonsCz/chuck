@@ -40,7 +40,7 @@
             class: DixonsCz\Chuck\Svn\RevisionMessage\Parser
         changelogFormatter:
             class: DixonsCz\Chuck\Changelog\Formatter
-            arguments: [%changelogWikiTpl%, %changelogWikiTpl%, %projects%, [jiraPath: %jiraPath% ]]
+            arguments: [%appDir%/templates/Log/changelog, %projects%, [jiraPath: %jiraPath% ]]
         changelogMailer:
             class: DixonsCz\Email\Mailer
             arguments: [%mailer%, @nette.mailer]

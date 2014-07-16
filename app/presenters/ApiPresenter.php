@@ -96,7 +96,16 @@ class ApiPresenter extends ProjectPresenter
         try {
             switch ($this->getRequest()->getMethod()) {
                 case "GET":
-                    $response = $this->service->getTagHistory($project, $tag, true);
+
+                    switch ($this->getParameter('template')) {
+                        case 'wiki':
+                        case 'html':
+                            $response = $this->service->getTagHistory($project, $tag, $this->getParameter('template'));
+                            break;
+                        default:
+                            $response = $this->service->getTagHistory($project, $tag);
+                    }
+
                     break;
 
                 default:

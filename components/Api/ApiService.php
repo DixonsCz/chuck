@@ -74,19 +74,22 @@ class ApiService
     /**
      * @param string $project
      * @param string $tagName
-     * @param bool
+     * @param string
      * @return mixed
      */
-    public function getTagHistory($project, $tagName, $useTemplate = true)
+    public function getTagHistory($project, $tagName, $template = 'html')
     {
         $logList = $this->helper->getUATTagChangelog($tagName);
         $ticketList = $this->logProcessor->generateTicketLog($logList);
 
-        if(!$useTemplate) {
+        if($template == 'none') {
             return $ticketList;
         }
 
-        return $this->tplFormatter->formatLog($project, $ticketList, 'wiki');
+        return $this->tplFormatter->formatLog($project, array(
+                'ticketLog' => $ticketList,
+                'tag' => $tagName,
+            ), $template);
     }
 
     /**
@@ -98,7 +101,10 @@ class ApiService
     {
         $logList = $this->helper->getUATTagChangelog($tagName);
         $ticketList = $this->logProcessor->generateTicketLog($logList);
-        $formatted = $this->tplFormatter->formatLog($project, $ticketList, 'mail');
+        $formatted = $this->tplFormatter->formatLog($project, array(
+                'ticketLog' => $ticketList,
+                'tag' => $tagName,
+            ), 'html');
 
         $this->mailer->sendUatChangelog($formatted);
 

@@ -18,49 +18,36 @@ class Formatter implements IFormatter
     /**
      * @var string
      */
-    private $defaultWikiTpl;
+    private $templateDir;
 
     /**
-     * @var string
-     */
-    private $defaultMailTpl;
-
-    /**
-     * @param string $changelogWiki
-     * @param string $changelogMail
+     * @param string $templateDir
      * @param array $projects project configuration
      * @param array $tplVariables variables passed to changelog template
      */
-    public function __construct($changelogWiki, $changelogMail, array $projects, $tplVariables = array())
+    public function __construct($templateDir, array $projects, $tplVariables = array())
     {
+        if(!is_dir($templateDir)) {
+            throw new \InvalidArgumentException("Invalid template directory");
+        }
+
+        $this->templateDir = $templateDir;
         $this->projects = $projects;
         $this->tplVariables = $tplVariables;
-        $this->defaultMailTpl = $changelogMail;
-        $this->defaultWikiTpl = $changelogWiki;
-    }
-
-    /**
-     * Gets file name for the template used set in config
-     *
-     * @param  string $project
-     * @return string
-     */
-    protected function getTemplateFile($project)
-    {
-        if (isset($this->projects[$project]['changelogTpl'])) {
-            return $this->projects[$project]['changelogTpl'];
-        } else {
-            return $this->defaultWikiTpl;
-        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function formatLog($project, array $log, $format = 'wiki')
+    public function formatLog($project, array $parameters, $format = 'wiki')
     {
-        $template = $this->createTemplate($project);
-        $template->ticketLog = $log;
+        $template = $this->createTemplate($format);
+
+        $template->project = $project;
+        foreach($parameters as $key => $var) {
+            $template->$key = $var;
+        }
+
         foreach($this->tplVariables as $key => $var) {
             $template->$key = $var;
         }
@@ -71,12 +58,12 @@ class Formatter implements IFormatter
     /**
      * Creates Latte template to generate changelog
      *
-     * @param string $project
+     * @param  string $format
      * @return \Nette\Templating\FileTemplate
      */
-    private function createTemplate($project)
+    private function createTemplate($format = 'html')
     {
-        $template = new \Nette\Templating\FileTemplate(APP_DIR . '/templates/Log/changelogTpls/'.$this->getTemplateFile($project));
+        $template = new \Nette\Templating\FileTemplate($this->templateDir.'/'.$format.'.latte');
         $template->registerFilter(new \Nette\Latte\Engine());
 
         return $template;
