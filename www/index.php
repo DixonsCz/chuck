@@ -1,40 +1,5 @@
 <?php
 
-use Nette\Diagnostics\Debugger;
+$container = require __DIR__ . '/../app/bootstrap.php';
 
-define('ROOT_DIR', realpath(__DIR__ . '/../'));
-define('WWW_DIR', __DIR__);
-define('APP_DIR', ROOT_DIR . '/app');
-define('LIBS_DIR', ROOT_DIR . '/libs');
-
-// Load libraries
-require ROOT_DIR . '/vendor/autoload.php';
-//\Nette\Framework::$iAmUsingBadHost = TRUE;
-//\Nette\Diagnostics\Debugger::enable(false);
-\Nette\Diagnostics\Debugger::enable(Debugger::DEVELOPMENT);
-
-// Configure application
-$configurator = new \Nette\Configurator();
-$configurator->setDebugMode(true);
-$configurator->setTempDirectory(ROOT_DIR . '/temp');
-$configurator->enableDebugger(__DIR__ . '/../log');
-$configurator->createRobotLoader()
-    ->addDirectory(APP_DIR)
-    ->addDirectory(ROOT_DIR . '/components')
-//    ->addDirectory(LIBS_DIR)
-    ->register();
-
-// basic environment resolution
-$environment = null;
-
-// jenkins server runs on nginx
-if (false !== strstr($_SERVER["SERVER_SOFTWARE"], "nginx")) {
-    $environment = "jenkins";
-    $configurator->setDebugMode(false);
-    \Nette\Diagnostics\Debugger::enable(Debugger::PRODUCTION);
-}
-
-$configurator->addConfig(ROOT_DIR . '/app/config/config.neon', $environment);
-$container = $configurator->createContainer();
-$container->application->catchExceptions = false;
 $container->getService('application')->run();
