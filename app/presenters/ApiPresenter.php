@@ -30,7 +30,6 @@ class ApiPresenter extends ProjectPresenter
     {
         switch($this->getParameter('format')) {
             case "raw":
-                \Nette\Diagnostics\Debugger::$bar = FALSE;
                 parent::sendResponse(new \Nette\Application\Responses\TextResponse($response));
                 break;
 
