@@ -68,7 +68,7 @@ class ApiService
             throw new SvnException("Tag already exists");
         }
 
-        return $this->helper->createTag($tagName, "Creating: {$tagName}", "branches/{$sourceBranch}");
+        return $this->helper->createTag($tagName, "Creating: {$tagName} from {$sourceBranch}", "branches/{$sourceBranch}");
     }
 
     /**
